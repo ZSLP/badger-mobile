@@ -56,6 +56,8 @@
     "vm-browserify": "0.0.4"
   },
   "devDependencies": {
+    "@types/react": "^16.8.20",
+    "@types/react-native": "^0.57.63",
     "babel-jest": "24.7.1",
     "eslint": "^5.16.0",
     "eslint-config-universe": "^1.0.7",
@@ -65,8 +67,10 @@
     "metro-react-native-babel-preset": "0.53.1",
     "prettier": "^1.17.1",
     "pretty-quick": "^1.11.0",
+    "react-native-typescript-transformer": "^1.2.12",
     "react-test-renderer": "16.8.6",
-    "rn-nodeify": "^10.0.1"
+    "rn-nodeify": "^10.0.1",
+    "typescript": "^3.5.2"
   },
   "husky": {
     "hooks": {
@@ -99,5 +103,9 @@
     "_stream_passthrough": "readable-stream/passthrough",
     "stream": "stream-browserify",
     "vm": "vm-browserify"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 80
   }
 }
