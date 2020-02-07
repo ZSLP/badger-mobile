@@ -115,7 +115,7 @@ const SendConfirmScreen = ({
     ? tokensById[tokenId]
       ? tokensById[tokenId].symbol
       : "---"
-    : "BCH";
+    : "ZCL";
 
   const decimals = tokenId ? tokensById[tokenId].decimals : 8;
 
@@ -139,9 +139,7 @@ const SendConfirmScreen = ({
       keypair:
         utxo.address === activeAccount.address ? keypair.bch : keypair.slp
     }));
-
     const spendableUTXOS = utxoWithKeypair.filter(utxo => utxo.spendable);
-
     let txParams = {};
     try {
       if (tokenId) {
@@ -155,7 +153,7 @@ const SendConfirmScreen = ({
         });
         // Sign and send SLP Token tx
         txParams = {
-          to: SLP.Address.toCashAddress(toAddress),
+          to: SLP.Address.toLegacyAddress(toAddress),
           from: activeAccount.address,
           value: sendAmountParam,
           sendTokenData: { tokenId }
@@ -177,13 +175,13 @@ const SendConfirmScreen = ({
           from: activeAccount.address,
           value: sendAmountParam
         };
-
         await signAndPublishBchTransaction(txParams, spendableUTXOS);
       }
       navigation.replace("SendSuccess", { txParams });
     } catch (e) {
       setTransactionState("setup");
 
+      // Probably can remove as error formatted comes back differently now
       const errorFormatted =
         {
           "66: insufficient priority": new Error(
@@ -195,13 +193,13 @@ const SendConfirmScreen = ({
     }
   };
   // Return to setup if any tx params are missing
-  if ((!tokenId && displaySymbol !== "BCH") || !sendAmount || !toAddress) {
+  if ((!tokenId && displaySymbol !== "ZCL") || !sendAmount || !toAddress) {
     navigation.navigate("SendSetup", { tokenId });
   }
 
   const imageSource = getTokenImage(tokenId);
 
-  const coinName = !tokenId ? "Bitcoin Cash" : tokensById[tokenId].name;
+  const coinName = !tokenId ? "Zclassic" : tokensById[tokenId].name;
 
   // toAddress like
   // -> simpleledger:qq2addressHash
@@ -215,16 +213,16 @@ const SendConfirmScreen = ({
   const addressEnd = address.slice(-6);
 
   const isBCH = !tokenId;
-  const BCHFiatAmount = isBCH
-    ? spotPrices["bch"][fiatCurrency].rate * (sendAmountParam / 10 ** 8)
-    : 0;
-  const fiatDisplay = isBCH
-    ? formatFiatAmount(
-        new BigNumber(BCHFiatAmount),
-        fiatCurrency,
-        tokenId || "bch"
-      )
-    : null;
+  // const BCHFiatAmount = isBCH
+  //   ? spotPrices["bch"][fiatCurrency].rate * (sendAmountParam / 10 ** 8)
+  //   : 0;
+  // const fiatDisplay = isBCH
+  //   ? formatFiatAmount(
+  //       new BigNumber(BCHFiatAmount),
+  //       fiatCurrency,
+  //       tokenId || "bch"
+  //     )
+  //   : null;
 
   return (
     <ScreenWrapper>
@@ -247,11 +245,11 @@ const SendConfirmScreen = ({
         <H2 center weight="bold">
           {sendAmountFormatted.toFormat() || "--"} {displaySymbol}
         </H2>
-        {fiatDisplay && (
+        {/* {fiatDisplay && (
           <T center type="muted">
             {fiatDisplay}
           </T>
-        )}
+        )} */}
         <Spacer large />
         <H2 center>To Address</H2>
         <Spacer small />

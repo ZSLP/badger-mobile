@@ -15,7 +15,7 @@ const parseAddress = (address: string) => {
     } catch (error) {
       throw new Error("invalid address");
     }
-    return SLP.Address.toCashAddress(address);
+    return SLP.Address.toLegacyAddress(address);
   } else if (type === "slpaddr") {
     try {
       checkIsValid("slpaddr", address);
@@ -96,7 +96,7 @@ const parseBCHScheme = (
   } catch (error) {
     throw new Error("invalid address");
   }
-  address = SLP.Address.toCashAddress(address);
+  address = SLP.Address.toLegacyAddress(address);
   amount = getValue(scheme, "amount");
 
   amount = parseAmount(amount);
@@ -170,7 +170,7 @@ const getType = (address: string) => {
 
 const checkIsValid = (type: string, address: string) => {
   if (type === "cashaddr") {
-    return SLP.Address.isCashAddress(address);
+    return SLP.Address.isLegacyAddress(address);
   } else if (type === "slpaddr") {
     return SLP.Address.isSLPAddress(address);
   } else {

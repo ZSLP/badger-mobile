@@ -1,12 +1,12 @@
-# Badger Wallet
+# Panda Crypto Wallet
 
-> Your gateway to the world of Bitcoin Cash (BCH) apps.
+> Your gateway to the world of Zclassic (ZCL) apps.
 
-Badger Wallet is a Bitcoin Cash (BCH) and Simple Ledger Protocol (SLP) wallet. The easiest to use mobile wallet for BCH and SLP tokens.
+Panda Crypto Wallet is a Zclassic (ZCL) and Zclassic Simple Ledger Protocol (ZSLP) wallet. The easiest to use mobile wallet for ZCL and ZSLP tokens.
 
 ## App Structure
 
-Badger Wallet mobile app is primarily built on the following technologies.
+Panda Crypto Wallet mobile app is primarily built on the following technologies.
 
 - react-native
   - redux
@@ -38,7 +38,7 @@ The file structure is as follows...
   /themes/
     - App color files
   /utils/
-    - Utility methods, mainly for Bitcoin Cash (BCH) related logic
+    - Utility methods, mainly for Zclassic (ZCL) related logic
   /ios/
     - iOS specific project files, modify these through xCode
   /android/
@@ -67,7 +67,7 @@ Navigation is managed with the `react-navigation` library. To contain the logic 
 
 ## Local Development
 
-This project use `react-native`. Please refer to the React Native documentation to get the iOS or Android emulator installed and running before running `badger-mobile`
+This project use `react-native`. Please refer to the React Native documentation to get the iOS or Android emulator installed and running before running `panda-mobile`
 
 #### Initial Setup
 
@@ -124,12 +124,12 @@ To run on a specific device, such as required for taking screenshots for the sto
 #### Android .apk
 
 - Follow the steps at https://facebook.github.io/react-native/docs/signed-apk-android
-- generate `badger-mobile-release.keystore` file and put into `/android/app`
+- generate `panda-mobile-release.keystore` file and put into `/android/app`
 - update `android/gradle.properties` with the keystore filename and password
 
 ```bash
-MYAPP_RELEASE_STORE_FILE=badger-mobile-release.keystore
-MYAPP_RELEASE_KEY_ALIAS=badger-mobile-release
+MYAPP_RELEASE_STORE_FILE=panda-mobile-release.keystore
+MYAPP_RELEASE_KEY_ALIAS=panda-mobile-release
 MYAPP_RELEASE_STORE_PASSWORD=**********
 MYAPP_RELEASE_KEY_PASSWORD=**********
 ```
@@ -162,7 +162,7 @@ yarn run android-bundle
 - Launch to Internal Test group
 - QA
 - Launch to production
-- Update the universal `.apk` on badger.bitcoin.com
+- Update the universal `.apk` on panda.zslp.org
 
 ##### To run production build locally
 

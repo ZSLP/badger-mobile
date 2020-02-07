@@ -26,10 +26,10 @@ const PrivacyNoticeScreen = ({ navigation }: Props) => {
       <T
         center
         onPress={() =>
-          Linking.openURL("https://www.bitcoin.com/privacy-policy")
+          Linking.openURL("https://panda.zslp.org/privacy-policy.html")
         }
       >
-        https://www.bitcoin.com/privacy-policy
+        https://panda.zslp.org/privacy-policy.html
       </T>
 
       <Spacer fill />
@@ -56,10 +56,10 @@ const ViewPrivacyNoticeScreen = ({ navigation }: Props) => {
       <T
         center
         onPress={() =>
-          Linking.openURL("https://www.bitcoin.com/privacy-policy")
+          Linking.openURL("https://panda.zslp.org/privacy-policy.html")
         }
       >
-        https://www.bitcoin.com/privacy-policy
+        https://panda.zslp.org/privacy-policy.html
       </T>
 
       <Spacer fill />

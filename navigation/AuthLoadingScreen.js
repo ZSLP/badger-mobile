@@ -46,9 +46,9 @@ const AuthLoadingScreen = ({ navigation, mnemonic, getAccount }: Props) => {
       let tokenId = null;
       let parseError = null;
 
-      const amounts = Object.entries(params).filter(
-        ([key: string, val: string]) => key.startsWith("amount")
-      );
+      const amounts = Object.entries(
+        params
+      ).filter(([key: string, val: string]) => key.startsWith("amount"));
 
       const amountsFormatted = amounts.map(curr => {
         const amountRaw = curr[1];
@@ -65,7 +65,7 @@ const AuthLoadingScreen = ({ navigation, mnemonic, getAccount }: Props) => {
 
       if (amountsFormatted.length > 1) {
         parseError =
-          "Badger Wallet currently only supports sending one coin at a time.  The URI is requesting multiple coins.";
+          "Panda Crypto Wallet currently only supports sending one coin at a time.  The URI is requesting multiple coins.";
       } else if (amountsFormatted.length === 1) {
         const target = amountsFormatted[0];
         tokenId = target.tokenId;
@@ -115,7 +115,7 @@ const AuthLoadingScreen = ({ navigation, mnemonic, getAccount }: Props) => {
       <InnerWrapper>
         <ActivityIndicator />
         <Spacer />
-        <T monospace>Herding Badgers</T>
+        <T monospace>Herding Pandas</T>
       </InnerWrapper>
     </Wrapper>
   );
@@ -130,7 +130,4 @@ const mapDispatchToProps = {
   getAccount
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AuthLoadingScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLoadingScreen);

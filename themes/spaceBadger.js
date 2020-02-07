@@ -38,8 +38,8 @@ const spaceBadger: Theme = {
   fg800: "#fbfbfb",
   payout900: "#f6edfa",
   pending500: "rgb(0, 193, 225)",
-  primary500: "#0AC18E",
-  primary700: "#11a87e",
+  primary500: "#D68433",
+  primary700: "#CC7C33",
   primary900: "#edfaf6",
   success500: "rgb(62, 193, 10)",
   success700: "#f6fff4"

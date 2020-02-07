@@ -134,7 +134,7 @@ const TransactionRow = ({
         </View>
         <TouchableOpacity
           onPress={() =>
-            Linking.openURL(`https://explorer.bitcoin.com/bch/tx/${txId}`)
+            Linking.openURL(`https://explorer.zcl.zeltrez.io/tx/${txId}`)
           }
         >
           <T size="small" type="muted2">
@@ -150,12 +150,13 @@ const TransactionRow = ({
           <T>{typeFormatted}</T>
         </InfoArea>
         <AmountArea>
-          {type !== "interwallet" && (
-            <T>
-              {type === "send" ? "-" : "+"}
-              {amount}
-            </T>
-          )}
+          <T>
+            {type === "interwallet"
+              ? `${amount}`
+              : type === "send"
+              ? `- ${amount}`
+              : `+ ${amount}`}
+          </T>
         </AmountArea>
       </AmountRow>
       <MetaRow>

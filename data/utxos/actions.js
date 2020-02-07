@@ -21,7 +21,7 @@ import {
 import { SLP } from "../../utils/slp-sdk-utils";
 
 // Generated from `uuid` cli command
-const BADGER_UUID_NAMESPACE = "9fcd327c-41df-412f-ba45-3cc90970e680";
+const BADGER_UUID_NAMESPACE = "635cd7d5-7519-4565-963c-82df74cd3c58";
 
 const updateUtxoStart = () => ({
   type: UPDATE_UTXO_START,

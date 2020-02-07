@@ -218,7 +218,7 @@ const RequestSetupScreen = ({
   };
 
   const imageSource = getTokenImage(tokenId);
-  const coinName = !tokenId ? "Bitcoin Cash" : tokensById[tokenId].name;
+  const coinName = !tokenId ? "Zclassic" : tokensById[tokenId].name;
   const coinDecimals = tokenId ? tokensById[tokenId].decimals : 8;
 
   const requestAmountFiatFormatted = formatFiatAmount(
@@ -263,11 +263,11 @@ const RequestSetupScreen = ({
             <T size="small" monospace right>
               {requestAmountCryptoFormatted || "0"} {symbol}
             </T>
-            {!tokenId && (
+            {/* {!tokenId && (
               <T size="small" monospace right>
                 {requestAmountFiatFormatted}
               </T>
-            )}
+            )} */}
           </View>
         </AmountRow>
         <Spacer tiny />
@@ -296,7 +296,7 @@ const RequestSetupScreen = ({
             }}
           />
         </AmountInputRow>
-        <Spacer tiny />
+        {/* <Spacer tiny />
         <AmountButtonArea>
           {!tokenId ? (
             <Button nature="ghost" onPress={toggleAmountType}>
@@ -309,7 +309,7 @@ const RequestSetupScreen = ({
             <View />
           )}
           <View />
-        </AmountButtonArea>
+        </AmountButtonArea> */}
         <Spacer small />
         <T size="xsmall" type="muted2">
           {requestUri}
@@ -322,14 +322,14 @@ const RequestSetupScreen = ({
         <H2 center monospace>
           {requestAmountCryptoFormatted} {symbol}
         </H2>
-        {!tokenId && (
+        {/* {!tokenId && (
           <>
             <Spacer minimal />
             <T type="muted" monospace center>
               {requestAmountFiatFormatted}
             </T>
           </>
-        )}
+        )} */}
         <Spacer />
 
         <TouchableOpacity
@@ -377,7 +377,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RequestSetupScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestSetupScreen);

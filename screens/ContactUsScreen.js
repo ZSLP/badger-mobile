@@ -23,7 +23,7 @@ const ContactUsScreen = (props: Props) => {
     <SafeAreaView style={{ height: "100%" }}>
       <ScreenWrapper contentContainerStyle={{ flexGrow: 1 }}>
         <Spacer />
-        <T center>We hope you are enjoying Badger Wallet</T>
+        <T center>We hope you are enjoying Panda Crypto Wallet</T>
         <Spacer small />
         <T center>
           If you wish to give feedback, ask a question, or contact us for
@@ -37,11 +37,13 @@ const ContactUsScreen = (props: Props) => {
         <Spacer tiny />
         <TouchableOpacity
           onPress={() =>
-            Linking.openURL("mailto:badger@bitcoin.com?subject=Badger Wallet")
+            Linking.openURL(
+              "mailto:htrap@thetechtrap.com?subject=Panda Crypto Wallet"
+            )
           }
         >
           <T center size="large">
-            badger@bitcoin.com
+            htrap@thetechtrap.com
           </T>
         </TouchableOpacity>
         <Spacer />
@@ -50,12 +52,10 @@ const ContactUsScreen = (props: Props) => {
         </T>
         <Spacer tiny />
         <TouchableOpacity
-          onPress={() =>
-            Linking.openURL("https://t.me/joinchat/IoTQ_hGflnfwd3YJSF8cRQ")
-          }
+          onPress={() => Linking.openURL("https://t.me/Zclassic800cc")}
         >
           <T center size="large">
-            Badger Wallet Group
+            Panda Crypto Wallet Group
           </T>
         </TouchableOpacity>
         <Spacer />

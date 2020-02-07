@@ -225,7 +225,7 @@ const SendSetupScreen = ({
       }
       return "---";
     }
-    return "BCH";
+    return "ZCL";
   }, [tokensById, tokenId]);
 
   // Fetch token Metadata if it is unknown
@@ -279,27 +279,27 @@ const SendSetupScreen = ({
     return formatAmount(availableAmount, coinDecimals);
   }, [availableAmount, coinDecimals]);
 
-  const fiatAmountTotal = useMemo(() => {
-    if (tokenId) {
-      return computeFiatAmount(
-        availableAmount,
-        spotPrices,
-        fiatCurrency,
-        tokenId
-      );
-    } else {
-      return computeFiatAmount(
-        availableAmount,
-        spotPrices,
-        fiatCurrency,
-        "bch"
-      );
-    }
-  }, [tokenId, availableAmount, fiatCurrency, spotPrices]);
+  // const fiatAmountTotal = useMemo(() => {
+  //   if (tokenId) {
+  //     return computeFiatAmount(
+  //       availableAmount,
+  //       spotPrices,
+  //       fiatCurrency,
+  //       tokenId
+  //     );
+  //   } else {
+  //     return computeFiatAmount(
+  //       availableAmount,
+  //       spotPrices,
+  //       fiatCurrency,
+  //       "bch"
+  //     );
+  //   }
+  // }, [tokenId, availableAmount, fiatCurrency, spotPrices]);
 
-  const fiatDisplayTotal = !tokenId
-    ? formatFiatAmount(fiatAmountTotal, fiatCurrency, tokenId || "bch")
-    : null;
+  // const fiatDisplayTotal = !tokenId
+  //   ? formatFiatAmount(fiatAmountTotal, fiatCurrency, tokenId || "bch")
+  //   : null;
 
   const fiatRate = useMemo(() => {
     if (tokenId) {
@@ -312,7 +312,7 @@ const SendSetupScreen = ({
 
   const coinName = useMemo(() => {
     if (!tokenId) {
-      return "Bitcoin Cash";
+      return "Zclassic";
     }
 
     const tokenName =
@@ -342,12 +342,12 @@ const SendSetupScreen = ({
 
     if (tokenId && !["slpaddr"].includes(addressFormat)) {
       setErrors([
-        "Can only send SLP tokens to Simpleledger addresses.  The to address should begin with 'simpleledger:'"
+        "Can only send ZSLP tokens to zslp addresses.  The to address should begin with 'zslp:'"
       ]);
       hasErrors = true;
-    } else if (!tokenId && !["cashaddr"].includes(addressFormat)) {
+    } else if (!tokenId && !["legacy"].includes(addressFormat)) {
       setErrors([
-        "Can only send Bitcoin Cash (BCH) to cash addresses, the to address should begin with 'bitcoincash:'"
+        "Can only send Zclassic (ZCL) to legacy addresses, the to address should begin with 't1'"
       ]);
       hasErrors = true;
     }
@@ -429,7 +429,7 @@ const SendSetupScreen = ({
 
       if (amounts.length > 1) {
         parseError =
-          "Badger Wallet currently only supports sending one coin or token at a time.  The URI is requesting multiple coins.";
+          "Panda Crypto Wallet currently only supports sending one coin or token at a time.  The URI is requesting multiple coins.";
       } else if (amounts.length === 1) {
         const target = amounts[0];
         uriTokenId = target.tokenId;
@@ -598,11 +598,11 @@ const SendSetupScreen = ({
             )}
             <T center>Balance ({displaySymbol || "---"})</T>
             <H2 center>{availableFundsDisplay}</H2>
-            {fiatDisplayTotal && (
+            {/* {fiatDisplayTotal && (
               <T center type="muted">
                 {fiatDisplayTotal}
               </T>
-            )}
+            )} */}
             <Spacer small />
 
             <T>Send To:</T>
@@ -611,7 +611,7 @@ const SendSetupScreen = ({
               <StyledTextInput
                 editable
                 multiline
-                placeholder={tokenId ? "simpleledger:" : "bitcoincash:"}
+                placeholder={tokenId ? "zslp:" : ""}
                 autoComplete="off"
                 autoCorrect={false}
                 value={toAddress}
@@ -657,11 +657,11 @@ const SendSetupScreen = ({
                 <T size="small" monospace right>
                   {sendAmountCryptoFormatted || "0"} {displaySymbol}
                 </T>
-                {!tokenId && (
+                {/* {!tokenId && (
                   <T size="small" monospace right>
                     {sendAmountFiatFormatted}
                   </T>
-                )}
+                )} */}
               </View>
             </AmountRow>
             <Spacer tiny />
@@ -696,7 +696,7 @@ const SendSetupScreen = ({
 
             <Spacer tiny />
             <AmountButtonArea>
-              {!tokenId ? (
+              {/* {!tokenId ? (
                 <StyledButton nature="ghost" onPress={toggleAmountType}>
                   <T center spacing="loose" type="primary" size="small">
                     <Ionicons name="ios-swap" size={18} />{" "}
@@ -707,7 +707,7 @@ const SendSetupScreen = ({
                 </StyledButton>
               ) : (
                 <View />
-              )}
+              )} */}
               <StyledButton
                 nature="ghost"
                 onPress={() => {
@@ -767,7 +767,4 @@ const mapDispatchToProps = {
   updateTokensMeta
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SendSetupScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SendSetupScreen);

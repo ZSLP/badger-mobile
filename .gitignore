@@ -69,5 +69,5 @@ android/gradle.properties
 
 flow-typed/
 
-ios/badgerMobile.xcworkspace/xcuserdata/
-ios/badgerMobile.xcodeproj/xcuserdata/
+ios/pandaMobile.xcworkspace/xcuserdata/
+ios/pandaMobile.xcodeproj/xcuserdata/

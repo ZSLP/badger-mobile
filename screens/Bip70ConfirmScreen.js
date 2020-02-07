@@ -146,7 +146,7 @@ const Bip70ConfirmScreen = ({
     const tokenInfo = tokensById[tokenId];
 
     if (!tokenId) {
-      return { name: "Bitcoin Cash", symbol: "BCH", decimals: 8 };
+      return { name: "Zclassic", symbol: "ZCL", decimals: 8 };
     }
     if (tokenInfo) {
       return {
@@ -512,7 +512,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = { updateTokensMeta, updateUtxos };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Bip70ConfirmScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(Bip70ConfirmScreen);

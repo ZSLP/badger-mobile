@@ -106,25 +106,25 @@ const MenuScreen = ({ navigation, seedViewed, fiatCurrency }: Props) => {
           }}
           hasNotification={!seedViewed}
         />
-        <OptionsRow
+        {/* <OptionsRow
           text="Currency"
           pressFn={() => {
             navigation.navigate("SelectCurrencyScreen");
           }}
           label={`${currencySymbolMap[fiatCurrency]} ${fiatCurrency}`}
-        />
+        /> */}
         <OptionsRow
           text="Frequently Asked Questions - FAQ"
           pressFn={() => {
             navigation.navigate("FAQScreen");
           }}
         />
-        <OptionsRow
+        {/* <OptionsRow
           text="Paper Wallet Sweep"
           pressFn={() => {
             navigation.navigate("SweepScreen");
           }}
-        />
+        /> */}
         <OptionsRow
           text="Terms of Use"
           muted
@@ -156,7 +156,7 @@ const MenuScreen = ({ navigation, seedViewed, fiatCurrency }: Props) => {
         <Spacer small />
         <T center size="small" type="muted2">
           {/* Version {packageJson.version} */}
-          Version 0.12.6
+          Version 0.1.0
         </T>
         <Spacer small />
       </StyledScrollView>
@@ -172,7 +172,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuScreen);

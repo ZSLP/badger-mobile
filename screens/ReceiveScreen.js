@@ -146,7 +146,7 @@ const ReceiveScreen = ({ address, addressSlp }: Props) => {
             }}
           >
             <T weight="bold" type={showing === "BCH" ? "inverse" : "primary"}>
-              BCH
+              ZCL
             </T>
           </ToggleLeft>
           <ToggleRight
@@ -157,14 +157,14 @@ const ReceiveScreen = ({ address, addressSlp }: Props) => {
             }}
           >
             <T weight="bold" type={showing === "SLP" ? "inverse" : "primary"}>
-              SLP
+              ZSLP
             </T>
           </ToggleRight>
         </ToggleRow>
         <Spacer />
         {showing === "BCH" && (
           <>
-            <H2 center>Bitcoin Cash (BCH)</H2>
+            <H2 center>Zclassic (ZCL)</H2>
             <Spacer tiny />
 
             <TouchableOpacity
@@ -176,10 +176,7 @@ const ReceiveScreen = ({ address, addressSlp }: Props) => {
               }}
             >
               <T size="xsmall" center>
-                bitcoincash:
-              </T>
-              <T size="xsmall" center>
-                {address && address.split(":")[1]}
+                {address}
               </T>
               <Spacer tiny />
 
@@ -204,14 +201,14 @@ const ReceiveScreen = ({ address, addressSlp }: Props) => {
             </TouchableOpacity>
             <Spacer tiny />
             <T center size="small" type="primary">
-              {copyNotify === "BCH" ? "Copied BCH Address" : " "}
+              {copyNotify === "BCH" ? "Copied ZCL Address" : " "}
             </T>
           </>
         )}
 
         {showing === "SLP" && (
           <>
-            <H2 center>Simple Token (SLP)</H2>
+            <H2 center>Simple Token (ZSLP)</H2>
             <Spacer tiny />
             <TouchableOpacity
               onPress={() => {
@@ -222,7 +219,7 @@ const ReceiveScreen = ({ address, addressSlp }: Props) => {
               }}
             >
               <T size="xsmall" center>
-                simpleledger:
+                zslp:
               </T>
               <T size="xsmall" center>
                 {simpleLedgerAddr && simpleLedgerAddr.split(":")[1]}
@@ -250,7 +247,7 @@ const ReceiveScreen = ({ address, addressSlp }: Props) => {
             </TouchableOpacity>
             <Spacer tiny />
             <T center size="small" type="primary">
-              {copyNotify === "SLP" ? "Copied SLP Address" : " "}
+              {copyNotify === "SLP" ? "Copied ZSLP Address" : " "}
             </T>
           </>
         )}
@@ -268,7 +265,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ReceiveScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ReceiveScreen);

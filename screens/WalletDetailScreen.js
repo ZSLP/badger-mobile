@@ -29,15 +29,12 @@ import {
 } from "../data/selectors";
 import { spotPricesSelector, currencySelector } from "../data/prices/selectors";
 import { tokensByIdSelector } from "../data/tokens/selectors";
+import { isUpdatingTransactionsSelector } from "../data/transactions/selectors";
 
 import { type Transaction } from "../data/transactions/reducer";
 import { type TokenData } from "../data/tokens/reducer";
 
-import {
-  formatAmount,
-  computeFiatAmount,
-  formatFiatAmount
-} from "../utils/balance-utils";
+import { formatAmount } from "../utils/balance-utils";
 import { addressToSlp } from "../utils/account-utils";
 import { getTokenImage } from "../utils/token-utils";
 import { type CurrencyCode } from "../utils/currency-utils";
@@ -81,7 +78,8 @@ type Props = {
   navigation: { navigate: Function, state: { params: any } },
   tokensById: { [tokenId: string]: TokenData },
   updateTransactions: Function,
-  transactions: Transaction[]
+  transactions: Transaction[],
+  isUpdatingTransactions: boolean
 };
 
 const WalletDetailScreen = ({
@@ -93,7 +91,8 @@ const WalletDetailScreen = ({
   spotPrices,
   fiatCurrency,
   transactions,
-  updateTransactions
+  updateTransactions,
+  isUpdatingTransactions
 }: Props) => {
   const { tokenId } = navigation.state.params;
   const token = tokensById[tokenId];
@@ -103,20 +102,19 @@ const WalletDetailScreen = ({
 
   const blockheight = useBlockheight();
 
-  const convertToSimpleLedger = useCallback(async () => {
-    const simpleLedger = await addressToSlp(addressSlp);
+  const convertToSimpleLedger = useCallback(async targetAddress => {
+    const simpleLedger = await addressToSlp(targetAddress);
     setSimpleledgerAddress(simpleLedger);
     return simpleLedger;
-  }, [addressSlp]);
+  }, []);
 
   useEffect(() => {
-    convertToSimpleLedger();
-  }, [addressSlp]);
+    convertToSimpleLedger(addressSlp);
+  }, [addressSlp, convertToSimpleLedger]);
 
   const isBCH = !tokenId;
-
-  const name = isBCH ? "Bitcoin Cash" : token ? token.name : "--------";
-  const ticker = isBCH ? "BCH" : token ? token.symbol : "---";
+  const name = isBCH ? "Zclassic" : token ? token.name : "--------";
+  const ticker = isBCH ? "ZCL" : token ? token.symbol : "---";
   const decimals = isBCH ? 8 : token ? token.decimals : null;
   const amount = isBCH
     ? balances.satoshisAvailable
@@ -124,19 +122,19 @@ const WalletDetailScreen = ({
 
   const imageSource = useMemo(() => getTokenImage(tokenId), [tokenId]);
 
-  let fiatAmount = null;
-  if (isBCH) {
-    fiatAmount = computeFiatAmount(amount, spotPrices, fiatCurrency, "bch");
-  } else {
-    fiatAmount = computeFiatAmount(amount, spotPrices, fiatCurrency, tokenId);
-  }
-  const fiatDisplay = isBCH
-    ? formatFiatAmount(fiatAmount, fiatCurrency, tokenId || "bch")
-    : null;
+  // let fiatAmount = null;
+  // if (isBCH) {
+  //   fiatAmount = computeFiatAmount(amount, spotPrices, fiatCurrency, "bch");
+  // } else {
+  //   fiatAmount = computeFiatAmount(amount, spotPrices, fiatCurrency, tokenId);
+  // }
+  // const fiatDisplay = isBCH
+  //   ? formatFiatAmount(fiatAmount, fiatCurrency, tokenId || "bch")
+  //   : null;
 
   const explorerUrl = isBCH
-    ? `https://explorer.bitcoin.com/bch/address/${address}`
-    : `https://explorer.bitcoin.com/bch/address/${simpleledgerAddress}`;
+    ? `https://explorer.zcl.zeltrez.io/address/${address}`
+    : `https://explorer.zslp.org/#address/${simpleledgerAddress}`;
 
   const amountFormatted = formatAmount(amount, decimals);
   let [amountWhole, amountDecimal] = (amountFormatted &&
@@ -189,11 +187,11 @@ const WalletDetailScreen = ({
             {amountWhole}
             {amountDecimal ? <H2>.{amountDecimal}</H2> : null}
           </H1>
-          {fiatDisplay && (
+          {/* {fiatDisplay && (
             <T center type="muted">
               {fiatDisplay}
             </T>
-          )}
+          )} */}
           <Spacer />
           <ButtonGroup>
             <Button
@@ -226,8 +224,17 @@ const WalletDetailScreen = ({
               toAddresses,
               fromAddresses,
               transactionType,
-              value
+              value,
+              valueBch,
+              sendTokenData
             } = txParams;
+
+            let txValue = tokenId
+              ? sendTokenData && sendTokenData.valueToken
+              : valueBch;
+
+            // Fallback to previous value
+            if (txValue == null) txValue = value;
 
             let txType = null;
             // Determine transaction type, consider moving this code to action.?
@@ -247,7 +254,7 @@ const WalletDetailScreen = ({
               txType = "unrecognized";
             }
 
-            const valueBigNumber = new BigNumber(value);
+            const valueBigNumber = new BigNumber(txValue);
             const valueAdjusted = tokenId
               ? valueBigNumber
               : valueBigNumber.shiftedBy(decimals * -1);
@@ -275,6 +282,18 @@ const WalletDetailScreen = ({
               />
             );
           })}
+          {isUpdatingTransactions && (
+            <>
+              <Spacer small />
+              <T size="small" type="muted" center>
+                Transaction history updating...
+              </T>
+              <T size="xsmall" type="muted2" center>
+                This may take a few minutes.
+              </T>
+              <Spacer small />
+            </>
+          )}
           <ExplorerRow>
             <Spacer small />
             <T
@@ -300,8 +319,9 @@ const mapStateToProps = (state, props) => {
   const tokensById = tokensByIdSelector(state);
   const spotPrices = spotPricesSelector(state);
   const fiatCurrency = currencySelector(state);
-
   const transactionsAll = transactionsActiveAccountSelector(state);
+
+  const isUpdatingTransactions = isUpdatingTransactionsSelector(state);
 
   const transactions = transactionsAll
     .filter(tx => {
@@ -310,7 +330,7 @@ const mapStateToProps = (state, props) => {
       if (tokenId) {
         return tokenId === txTokenId;
       }
-      return !txTokenId;
+      return !txTokenId || tx.txParams.valueBch;
     })
     .slice(0, 30);
 
@@ -321,13 +341,11 @@ const mapStateToProps = (state, props) => {
     tokensById,
     transactions,
     spotPrices,
-    fiatCurrency
+    fiatCurrency,
+    isUpdatingTransactions
   };
 };
 
 const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WalletDetailScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletDetailScreen);

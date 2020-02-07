@@ -2,7 +2,7 @@
 
 // Communicate directly with the REST api.
 
-const API = `https://rest.bitcoin.com/v2`;
+const API = `https://rest.zslp.org/v2`;
 
 const getBlockCountURL = `${API}/blockchain/getBlockCount`;
 

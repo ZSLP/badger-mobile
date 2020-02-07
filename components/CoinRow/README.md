@@ -6,10 +6,8 @@ Basic layout
 
 | symbol Ticker - Coin Name |
 | symbol Amount |
-| symbol extra |
 
 example
 
-| symbol BCH - Bitcoin Cash |
+| symbol ZCL - ZClassic |
 | symbol 1.33333353 |
-| symbol \$175.23 |

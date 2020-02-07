@@ -33,51 +33,51 @@ const FAQScreen = (props: Props) => {
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <ScreenWrapper contentContainerStyle={{ flexGrow: 1 }}>
-        <FAQItem title="What is Badger Wallet?">
+        <FAQItem title="What is Panda Crypto Wallet?">
           <T>
-            Badger Wallet is a Bitcoin Cash (BCH) and Simple Token (SLP) wallet,
-            designed to prioritize simplicity for everyday use.
+            Panda Crypto Wallet is a Zclassic (ZCL) and Simple Token (ZSLP)
+            wallet, designed to prioritize simplicity for everyday use.
           </T>
           <TouchableOpacity
-            onPress={() => Linking.openURL("https://badger.bitcoin.com")}
+            onPress={() => Linking.openURL("https://panda.zslp.org")}
           >
-            <T type="accent">badger.bitcoin.com</T>
+            <T type="accent">panda.zslp.org</T>
           </TouchableOpacity>
         </FAQItem>
-        <FAQItem title="Which currencies does Badger wallet support?">
-          <T>Bitcoin Cash (BCH) and Simple Ledger Protocol (SLP) tokens</T>
-        </FAQItem>
-        <FAQItem title="What is Bitcoin Cash (BCH)?">
+        <FAQItem title="Which currencies does Panda Crypto wallet support?">
           <T>
-            Bitcoin Cash (BCH) is a version of bitcoin which focuses on being
-            peer to peer electronic cash for the world. Learn more at
+            Zclassic (ZCL) and Zclassic Simple Ledger Protocol (ZSLP) tokens
+          </T>
+        </FAQItem>
+        <FAQItem title="What is Zclassic (ZCL)?">
+          <T>
+            Zclassic (ZCL) is a fork of Zcash which removes the 20% fee. Learn
+            more at
           </T>
           <TouchableOpacity
-            onPress={() => Linking.openURL("https://bitcoincash.org")}
+            onPress={() => Linking.openURL("https://zclassic.org/")}
           >
-            <T type="accent">bitcoincash.org</T>
+            <T type="accent">zclassic.org</T>
           </TouchableOpacity>
         </FAQItem>
 
-        <FAQItem title="What are Simple Ledger Protocol (SLP) tokens?">
+        <FAQItem title="What are Zclassic Simple Ledger Protocol (ZSLP) tokens?">
           <T>
-            SLP tokens are tokens which follow the Simple Ledger Protocol
-            specification which is built upon the Bitcoin Cash network. SLP
-            tokens allow anyone to create, send, and receive tokens with anyone,
+            ZSLP tokens are tokens which follow the Simple Ledger Protocol
+            specification which is built upon the Zclassic network. ZSLP tokens
+            allow anyone to create, send, and receive tokens with anyone,
             easily.
           </T>
-          <TouchableOpacity
-            onPress={() => Linking.openURL("https://simpleledger.cash")}
-          >
-            <T type="accent">simpleledger.cash</T>
+          <TouchableOpacity onPress={() => Linking.openURL("https://zslp.org")}>
+            <T type="accent">zslp.org</T>
           </TouchableOpacity>
         </FAQItem>
 
         <FAQItem title="Why can't I send tokens?">
           <T>
             Receiving tokens is free, but sending requires a little bit of
-            Bitcoin Cash (BCH) to pay the transaction fee. Make sure your wallet
-            has a little bit of BCH before sending SLP tokens.
+            Zclassic (ZCL) to pay the transaction fee. Make sure your wallet has
+            a little bit of ZCL before sending ZSLP tokens.
           </T>
         </FAQItem>
         <Spacer large />

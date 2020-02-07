@@ -38,8 +38,8 @@ const getAccount = (mnemonic?: string, accountIndex?: number = 0) => {
   return async (dispatch: Function, getState: Function) => {
     dispatch(getAccountStart());
 
-    const derivationPathBCH = "m/44'/145'";
-    const derivationPathSLP = "m/44'/245'";
+    const derivationPathBCH = "m/44'/147'";
+    const derivationPathSLP = "m/44'/465'";
 
     const childIndex = 0;
     //  TODO - Error or fail state

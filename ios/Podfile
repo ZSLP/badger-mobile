@@ -1,7 +1,7 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'badgerMobile' do
+target 'pandaMobile' do
   pod 'React', :path => '../node_modules/react-native/'
   pod 'React-Core', :path => '../node_modules/react-native/React'
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
@@ -26,9 +26,13 @@ target 'badgerMobile' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
 
-  target 'badgerMobileTests' do
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+  
+  target 'pandaMobileTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -36,10 +40,10 @@ target 'badgerMobile' do
   use_native_modules!
 end
 
-# target 'badgerMobile-tvOS' do
+# target 'pandaMobile-tvOS' do
 #   # Pods for RnDiffApp-tvOS
 
-#   target 'badgerMobile-tvOSTests' do
+#   target 'pandaMobile-tvOSTests' do
 #     inherit! :search_paths
 #     # Pods for testing
 #   end

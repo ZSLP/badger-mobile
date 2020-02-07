@@ -2,9 +2,9 @@
 
 import SLPSDK from "slp-sdk";
 
-const SLP = new SLPSDK();
+// const SLP = new SLPSDK();
 
 // Uncomment for local version
-// const SLP = new SLPSDK({ restURL: "http://localhost:3000/v2/" });
+const SLP = new SLPSDK({ restURL: "https://rest.zslp.org/v2/" });
 
 export { SLP };

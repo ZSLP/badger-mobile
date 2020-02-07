@@ -78,7 +78,7 @@ const SendSuccessScreen = ({
 
   const toConverted = tokenId
     ? SLP.Address.toSLPAddress(to)
-    : SLP.Address.toCashAddress(to);
+    : SLP.Address.toLegacyAddress(to);
   // toAddress like
   // -> simpleledger:qq2addressHash
   // -> l344f3legacyFormatted
@@ -91,24 +91,24 @@ const SendSuccessScreen = ({
   const addressMiddle = toAddress.slice(5, -6);
   const addressEnd = toAddress.slice(-6);
 
-  const coinName = tokenId ? tokensById[tokenId].name : "Bitcoin Cash";
-  const symbol = tokenId ? tokensById[tokenId].symbol : "BCH";
+  const coinName = tokenId ? tokensById[tokenId].name : "Zclassic";
+  const symbol = tokenId ? tokensById[tokenId].symbol : "ZCL";
 
   // Tokens absolute amount, BCH it's # of satoshis
   const valueRaw = new BigNumber(value);
   const valueAdjusted = tokenId ? valueRaw : valueRaw.shiftedBy(-1 * 8);
 
   const isBCH = !tokenId;
-  const BCHFiatAmount = isBCH
-    ? spotPrices["bch"][fiatCurrency].rate * valueAdjusted
-    : 0;
-  const fiatDisplay = isBCH
-    ? formatFiatAmount(
-        new BigNumber(BCHFiatAmount),
-        fiatCurrency,
-        tokenId || "bch"
-      )
-    : null;
+  // const BCHFiatAmount = isBCH
+  //   ? spotPrices["bch"][fiatCurrency].rate * valueAdjusted
+  //   : 0;
+  // const fiatDisplay = isBCH
+  //   ? formatFiatAmount(
+  //       new BigNumber(BCHFiatAmount),
+  //       fiatCurrency,
+  //       tokenId || "bch"
+  //     )
+  //   : null;
 
   return (
     <ScreenCover>
@@ -139,11 +139,11 @@ const SendSuccessScreen = ({
           <H2 center weight="bold" type="inverse">
             {valueAdjusted.toFormat()} {symbol}
           </H2>
-          {fiatDisplay && (
+          {/* {fiatDisplay && (
             <T center type="inverse">
               {fiatDisplay}
             </T>
-          )}
+          )} */}
           <Spacer large />
           <H2 center type="inverse">
             To Address
@@ -191,7 +191,4 @@ const mapDispatchToProps = {
   updateTransactions
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SendSuccessScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SendSuccessScreen);

@@ -24,8 +24,7 @@ const deriveAccount = (
     `${accountIndex}'/0/${childIndex}`
   );
   const keypair = SLP.HDNode.toKeyPair(child);
-  const address = SLP.ECPair.toCashAddress(keypair);
-
+  const address = SLP.ECPair.toLegacyAddress(keypair);
   return { mnemonic, keypair, address, accountIndex };
 };
 
@@ -33,7 +32,7 @@ const addressToSlp = async (address: string) => {
   return await SLP.Address.toSLPAddress(address);
 };
 const addressToCash = async (address: string) => {
-  return await SLP.Address.toCashAddress(address);
+  return await SLP.Address.toLegacyAddress(address);
 };
 
 export { deriveAccount, addressToSlp, addressToCash, generateMnemonic };

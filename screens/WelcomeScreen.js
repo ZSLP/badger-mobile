@@ -21,16 +21,16 @@ const WelcomeScreen = ({ navigation }: Props) => {
   return (
     <StyledWrapper>
       <Spacer />
-      <H1>Badger Wallet</H1>
+      <H1>Panda Crypto Wallet</H1>
       <Spacer />
       <Image source={BadgerIcon} style={{ width: 150, height: 150 }} />
       <Spacer />
       <View style={{ flex: 1 }}>
         <H2 style={{ textAlign: "center" }}>
-          Your gateway to the world of Bitcoin Cash (BCH)
+          Your gateway to the world of Zclassic (ZCL)
         </H2>
         <Spacer small />
-        <T center>Bitcoin Cash (BCH) and Simple Token (SLP) wallet </T>
+        <T center>Zclassic (ZCL) and Simple Token (ZSLP) wallet </T>
       </View>
 
       <View style={{ flex: 1 }}>

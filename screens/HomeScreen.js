@@ -45,7 +45,7 @@ import { type CurrencyCode } from "../utils/currency-utils";
 
 const SECOND = 1000;
 
-// Same as the Badger namespace for now.  doesn't need to be unique here.
+// Same as the Panda namespace for now.  doesn't need to be unique here.
 const HASH_UUID_NAMESPACE = "9fcd327c-41df-412f-ba45-3cc90970e680";
 
 const BackupNotice = styled(TouchableOpacity)`
@@ -64,7 +64,7 @@ const NoTokensRow = styled(View)`
 const NoTokensFound = () => (
   <NoTokensRow>
     <T size="small" type="muted2">
-      No SLP tokens in the vault yet
+      No ZSLP tokens in the vault yet
     </T>
   </NoTokensRow>
 );
@@ -128,15 +128,17 @@ const HomeScreen = ({
     };
   }, [address, addressSlp, updateUtxos]);
 
-  // Update transaction history
+  // Update transaction history initial
   useEffect(() => {
-    if (!address) return;
-
+    if (!address || !addressSlp) return;
     updateTransactions(address, addressSlp);
-    const transactionInterval = setInterval(
-      () => updateTransactions(address, addressSlp),
-      25 * 1000
-    );
+  }, [address, addressSlp, updateTransactions]);
+
+  // Update transaction history interval
+  useEffect(() => {
+    const transactionInterval = setInterval(() => {
+      updateTransactions(address, addressSlp);
+    }, 30 * 1000);
     return () => {
       clearInterval(transactionInterval);
     };
@@ -194,27 +196,27 @@ const HomeScreen = ({
     return tokensSorted;
   }, [balances.slpTokens, tokensById]);
 
-  const BCHFiatDisplay = useMemo(() => {
-    const BCHFiatAmount = computeFiatAmount(
-      balances.satoshisAvailable,
-      spotPrices,
-      fiatCurrency,
-      "bch"
-    );
+  // const BCHFiatDisplay = useMemo(() => {
+  //   const BCHFiatAmount = computeFiatAmount(
+  //     balances.satoshisAvailable,
+  //     spotPrices,
+  //     fiatCurrency,
+  //     "bch"
+  //   );
 
-    return formatFiatAmount(BCHFiatAmount, fiatCurrency, "bch");
-  }, [balances.satoshisAvailable, fiatCurrency, spotPrices]);
+  //   return formatFiatAmount(BCHFiatAmount, fiatCurrency, "bch");
+  // }, [balances.satoshisAvailable, fiatCurrency, spotPrices]);
 
   const walletSections = useMemo(() => {
     return [
       {
-        title: "Bitcoin Cash Wallet",
+        title: "Zclassic Wallet",
         data: [
           {
-            symbol: "BCH",
-            name: "Bitcoin Cash",
-            amount: formatAmount(balances.satoshisAvailable, 8),
-            valueDisplay: BCHFiatDisplay
+            symbol: "ZCL",
+            name: "Zclassic",
+            amount: formatAmount(balances.satoshisAvailable, 8)
+            // valueDisplay: BCHFiatDisplay
           }
         ]
       },
@@ -223,7 +225,7 @@ const HomeScreen = ({
         data: tokenData
       }
     ];
-  }, [BCHFiatDisplay, balances.satoshisAvailable, tokenData]);
+  }, [balances.satoshisAvailable, tokenData]);
 
   return (
     <SafeAreaView>
@@ -244,11 +246,11 @@ const HomeScreen = ({
             <Spacer large />
           )}
           <H1 center spacing="loose" weight="bold">
-            Badger
+            Panda
           </H1>
           <Spacer tiny />
           <T center type="muted2">
-            BCH and SLP wallet
+            ZCL and ZSLP wallet
           </T>
           <Spacer />
           <View style={{ position: "relative" }}>
@@ -299,15 +301,10 @@ const mapStateToProps = (state, props) => {
   const address = getAddressSelector(state);
   const addressSlp = getAddressSlpSelector(state);
   const balances = balancesSelector(state, address);
-
   const tokensById = tokensByIdSelector(state);
-
   const spotPrices = spotPricesSelector(state);
-
   const seedViewed = getSeedViewedSelector(state);
-
   const initialLoadingDone = doneInitialLoadSelector(state, address);
-
   const fiatCurrency = currencySelector(state);
 
   return {
@@ -329,7 +326,4 @@ const mapDispatchToProps = {
   updateUtxos
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
